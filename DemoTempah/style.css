@@ -6,9 +6,9 @@
 }
 
 body {
-    background: #f6f1e8;
-    color: #333;
-    padding-top: 180px; /* tinggi header + tajuk */
+    background: #fefaf6; /* Cream lebih cerah */
+    color: #4a3c31; /* Coklat gelap untuk teks */
+    padding-top: 180px;
 }
 
 /* ================= HEADER ================= */
@@ -16,9 +16,10 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
-    background: #ffffff;
-    border-bottom: 2px solid #4e342e;
+    background: #fff8f0; /* Cream muda */
+    border-bottom: 2px solid #8b6b4c; /* Coklat medium */
     z-index: 1000;
+    box-shadow: 0 2px 10px rgba(139, 107, 76, 0.1); /* Shadow coklat lembut */
 }
 
 .navbar {
@@ -41,18 +42,24 @@ header {
 
 .nav-links a {
     text-decoration: none;
-    color: #0b5ed7;
+    color: #8b6b4c; /* Coklat medium */
     font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    background-color: #8b6b4c; /* Coklat medium */
+    color: #fff8f0; /* Cream muda */
+    text-decoration: none;
 }
 
 .menu-toggle {
     display: none;
     font-size: 26px;
     cursor: pointer;
+    color: #8b6b4c; /* Coklat medium */
 }
 
 /* ================= TAJUK ================= */
@@ -61,9 +68,10 @@ header {
     padding: 20px 10px;
     font-size: 22px;
     font-weight: 700;
-    color: #4e342e; 
-    border-top: 2px solid #0b5ed7;
-    border-bottom: 1px solid #0b5ed7; /* nipis bawah sahaja */
+    color: #6d4c41; /* Coklat gelap */
+    border-top: 2px solid #8b6b4c; /* Coklat medium */
+    border-bottom: 1px solid #8b6b4c; /* Coklat medium */
+    background: #f5e9dd; /* Cream lebih pekat */
 }
 
 /* ================= SECTION ================= */
@@ -79,12 +87,25 @@ section {
 .section-title {
     text-align: center;
     margin-bottom: 40px;
+    color: #6d4c41; /* Coklat gelap */
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #8b6b4c; /* Coklat medium */
 }
 
 /* ================= PAPARAN ================= */
 .paparan-full {
-    padding-top: 40px; /* jarak dari tajuk */
-     background: #fffaf3;
+    padding-top: 40px;
+    background: #f9f1e8; /* Cream lembut */
 }
 
 .paparan-container {
@@ -97,10 +118,11 @@ section {
     position: relative;
     width: 100%;
     height: 0;
-    padding-top: 56.25%;   /* 16:9 ratio */
+    padding-top: 56.25%;
     border-radius: 12px;
-    border: 1.5px solid #0b5ed7;
+    border: 1.5px solid #8b6b4c; /* Coklat medium */
     overflow: hidden;
+    background: #f5e9dd; /* Cream pekat sebagai fallback */
 }
 
 .slide {
@@ -122,10 +144,11 @@ section {
     position: absolute;
     bottom: 20px;
     left: 20px;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
+    background: rgba(107, 78, 49, 0.8); /* Coklat transparen */
+    color: #fff8f0; /* Cream muda */
     padding: 10px 20px;
     border-radius: 6px;
+    font-weight: 600;
 }
 
 /* ================= KENALI ================= */
@@ -150,14 +173,24 @@ section {
 
 .kenali-item {
     text-align: center;
+    padding: 20px;
+    background: #fff8f0; /* Cream muda */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(139, 107, 76, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.kenali-item:hover {
+    transform: translateY(-5px);
 }
 
 .kenali-item img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 3px solid #0b5ed7;
+    border: 3px solid #8b6b4c; /* Coklat medium */
     object-fit: cover;
+    background: #f5e9dd; /* Cream pekat sebagai background gambar */
 }
 
 .kenali-item img.afif-face {
@@ -167,6 +200,7 @@ section {
 .kenali-item p {
     margin-top: 12px;
     font-weight: 600;
+    color: #6d4c41; /* Coklat gelap */
 }
 
 /* ================= VIDEO ================= */
@@ -179,7 +213,8 @@ video {
     width: 100%;
     max-width: 600px;
     border-radius: 10px;
-    border: 2px solid #ccc;
+    border: 2px solid #8b6b4c; /* Coklat medium */
+    background: #f5e9dd; /* Cream pekat */
 }
 
 /* ================= LINKS ================= */
@@ -192,23 +227,28 @@ video {
 
 .links a {
     padding: 12px 30px;
-    border: 2px solid #6d4c41;
+    border: 2px solid #8b6b4c; /* Coklat medium */
     border-radius: 8px;
     text-decoration: none;
-   color: #6d4c41;
+    color: #8b6b4c; /* Coklat medium */
     font-weight: 600;
+    background: #fff8f0; /* Cream muda */
+    transition: all 0.3s ease;
+    min-width: 250px;
+    text-align: center;
 }
 
 .links a:hover {
-   background: #6d4c41;
-    color: #fff;
+    background: #8b6b4c; /* Coklat medium */
+    color: #fff8f0; /* Cream muda */
+    transform: scale(1.05);
 }
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
-
     body {
         padding-top: 220px;
+        background: #fefaf6; /* Cream cerah */
     }
 
     .menu-toggle {
@@ -221,22 +261,46 @@ video {
         top: 60px;
         left: 0;
         width: 100%;
-        background: #fff;
+        background: #fff8f0; /* Cream muda */
         flex-direction: column;
-        border-top: 1px solid #ddd;
+        border-top: 1px solid #8b6b4c; /* Coklat medium */
+        padding: 10px 0;
+        box-shadow: 0 5px 15px rgba(139, 107, 76, 0.1);
     }
 
     .nav-links a {
         padding: 14px;
         text-align: center;
+        margin: 0 10px;
+        border: 1px solid #e8d5c4;
     }
 
     .kenali-bottom {
         flex-direction: column;
         gap: 40px;
     }
+
+    .kenali-item {
+        padding: 15px;
+    }
+
+    .links a {
+        min-width: 200px;
+    }
 }
 
+/* Tambahan: Gradient background untuk kesan menarik */
+#paparan, #kenali, #demo, #lain {
+    position: relative;
+}
 
-
-
+#paparan::before, #kenali::before, #demo::before, #lain::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #f5e9dd, #8b6b4c, #f5e9dd);
+    opacity: 0.5;
+}
