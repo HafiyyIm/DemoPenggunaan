@@ -230,3 +230,22 @@ video {
         gap: 40px;
     }
 }
+/* =====================
+   FIX PAPARAN SISTEM MOBILE
+===================== */
+@media (max-width: 768px) {
+
+    .paparan-full {
+        margin-top: 20px;   /* kecilkan jarak dari tajuk */
+    }
+
+    .slideshow {
+        height: 250px;      /* 📱 lebih sesuai untuk telefon */
+    }
+
+}
+@media (max-width: 768px) {
+    .slideshow {
+        height: 60vh;   /* ikut tinggi skrin telefon */
+    }
+}
