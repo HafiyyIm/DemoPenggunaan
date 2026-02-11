@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f5f6f7;
+    color: #333;
+    padding-top: 180px; /* tinggi header + tajuk */
+}
+
+/* ================= HEADER ================= */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 2px solid #0b5ed7;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 75px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #0b5ed7;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* ================= TAJUK ================= */
+.system-title {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #0b5ed7;
+    border-top: 2px solid #0b5ed7;
+    border-bottom: 1px solid #0b5ed7;
+}
+
+/* ================= SECTION ================= */
+section {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ================= PAPARAN ================= */
+.paparan-full {
+    padding-top: 40px; /* jarak dari tajuk */
+}
+
+.paparan-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.slideshow {
+    position: relative;
+    height: 400px;
+    border-radius: 12px;
+    border: 1.5px solid #0b5ed7;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide-text {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+/* ================= KENALI ================= */
+.kenali-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.kenali-top {
+    display: flex;
+    justify-content: center;
+}
+
+.kenali-bottom {
+    display: flex;
+    gap: 80px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.kenali-item {
+    text-align: center;
+}
+
+.kenali-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #0b5ed7;
+    object-fit: cover;
+}
+
+.kenali-item img.afif-face {
+    object-position: top center;
+}
+
+.kenali-item p {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+/* ================= VIDEO ================= */
+.video-box {
+    display: flex;
+    justify-content: center;
+}
+
+video {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+}
+
+/* ================= LINKS ================= */
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.links a {
+    padding: 12px 30px;
+    border: 2px solid #0b5ed7;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #0b5ed7;
+    font-weight: 600;
+}
+
+.links a:hover {
+    background: #0b5ed7;
+    color: #fff;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+    body {
+        padding-top: 220px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        flex-direction: column;
+        border-top: 1px solid #ddd;
+    }
+
+    .nav-links a {
+        padding: 14px;
+        text-align: center;
+    }
+
+    .kenali-bottom {
+        flex-direction: column;
+        gap: 40px;
+    }
+}

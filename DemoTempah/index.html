@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Tempah</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <img src="Logo Sistem.png" alt="Logo">
+        </div>
+
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <nav class="nav-links" id="menu">
+            <a href="#paparan" class="nav-link">Paparan Sistem</a>
+            <a href="#kenali" class="nav-link">Kenali Kami</a>
+            <a href="#demo" class="nav-link">Demo Penggunaan</a>
+            <a href="#lain" class="nav-link">Lain-lain</a>
+        </nav>
+    </div>
+
+    <div class="system-title">
+        Sistem Tempahan Bilik Kuliah Khas KVSP1
+    </div>
+</header>
+
+<!-- PAPARAN SISTEM -->
+<section id="paparan" class="paparan-full">
+    <div class="paparan-container">
+        <div class="slideshow">
+            <img src="Log Masuk.png" class="slide active">
+            <img src="Antaramuka Pengguna.png" class="slide">
+            <img src="Antaramuka Admin.png" class="slide">
+
+            <div class="slide-text">
+                PAPARAN SISTEM e-TEMPAH
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KENALI KAMI -->
+<section id="kenali">
+    <div class="container">
+        <h2 class="section-title">Kenali Kami</h2>
+
+        <div class="kenali-grid">
+            <div class="kenali-top">
+                <div class="kenali-item">
+                    <img src="CG Liza.png">
+                    <p>Pn. Rusliza binti Ramli</p>
+                </div>
+            </div>
+
+            <div class="kenali-bottom">
+                <div class="kenali-item">
+                    <img src="Hafiy Imran.png">
+                    <p>Hafiy Imran bin Hairi Idzham</p>
+                </div>
+
+                <div class="kenali-item">
+                    <img src="Afif Aminin.png" class="afif-face">
+                    <p>Muhammad Afif Aminin bin Rikino</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo">
+    <div class="container">
+        <h2 class="section-title"> Demo Penggunaan Sistem</h2>
+        <div class="video-box">
+            <video controls>
+                <source src="demo.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- LAIN-LAIN -->
+<section id="lain">
+    <div class="container">
+        <h2 class="section-title">Lain-lain</h2>
+
+        <div class="links">
+            <a href="https://etempah.teknokomsp1.com/" target="_blank">
+                Web Kami!
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdik3dNjg_HANMKHxLZbBioor8EBjWb2x9ub5CVGxMREa4dXQ/viewform">
+                Borang Soal Selidik
+            </a>
+        </div>
+    </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
