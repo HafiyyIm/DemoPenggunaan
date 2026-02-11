@@ -63,7 +63,7 @@ header {
     font-weight: 700;
     color: #0b5ed7;
     border-top: 2px solid #0b5ed7;
-    border-bottom: 1px solid #0b5ed7;
+    border-bottom: 1px solid #0b5ed7; /* nipis bawah sahaja */
 }
 
 /* ================= SECTION ================= */
@@ -91,9 +91,12 @@ section {
     margin: auto;
 }
 
+/* ✅ SLIDESHOW STABIL (DESKTOP + MOBILE) */
 .slideshow {
     position: relative;
-    height: 400px;
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%;   /* 16:9 ratio */
     border-radius: 12px;
     border: 1.5px solid #0b5ed7;
     overflow: hidden;
@@ -101,6 +104,8 @@ section {
 
 .slide {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -230,30 +235,3 @@ video {
         gap: 40px;
     }
 }
-@media (max-width: 768px) {
-
-    .slideshow {
-        height: 220px;   /* lebih sesuai untuk phone */
-    }
-
-    .slide {
-        object-fit: cover;   /* kekalkan slideshow effect */
-    }
-
-}
-@media (max-width: 768px) {
-
-    .slideshow {
-        height: 260px;        /* lebih tinggi supaya tak nampak kosong */
-    }
-
-    .slide {
-        object-fit: cover;
-        object-position: center top;  /* fokus bahagian atas gambar */
-    }
-
-}
-
-
-
-
