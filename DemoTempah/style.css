@@ -241,5 +241,19 @@ video {
     }
 
 }
+@media (max-width: 768px) {
+
+    .slideshow {
+        height: 260px;        /* lebih tinggi supaya tak nampak kosong */
+    }
+
+    .slide {
+        object-fit: cover;
+        object-position: center top;  /* fokus bahagian atas gambar */
+    }
+
+}
+
+
 
 
