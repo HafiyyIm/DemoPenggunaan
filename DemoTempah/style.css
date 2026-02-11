@@ -244,8 +244,18 @@ video {
     }
 
 }
+
 @media (max-width: 768px) {
+
     .slideshow {
-        height: 60vh;   /* ikut tinggi skrin telefon */
+        height: auto;          /* jangan paksa tinggi */
     }
+
+    .slide {
+        position: relative;    /* buang absolute untuk mobile */
+        height: auto;
+        object-fit: contain;   /* 🔥 ini penting */
+    }
+
 }
+
