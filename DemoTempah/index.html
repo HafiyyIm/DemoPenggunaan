@@ -7,102 +7,272 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Tambah sebelum </body> -->
-<div class="floating-bubbles"></div>
-    
-<header>
-    <div class="navbar">
-        <div class="logo">
-            <img src="Logo Sistem.png" alt="Logo">
-        </div>
-
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-        <nav class="nav-links" id="menu">
-            <a href="#paparan" class="nav-link">Paparan Sistem</a>
-            <a href="#kenali" class="nav-link">Kenali Kami</a>
-            <a href="#demo" class="nav-link">Demo Penggunaan</a>
-            <a href="#lain" class="nav-link">Lain-lain</a>
-        </nav>
+    <!-- Preloader (optional) -->
+    <div id="preloader">
+        <div class="spinner"></div>
     </div>
 
-    <div class="system-title">
-        Sistem Tempahan Bilik Kuliah Khas KVSP1
+    <!-- Floating Bubbles Background -->
+    <div class="floating-bubbles">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
     </div>
-</header>
 
-<!-- PAPARAN SISTEM -->
-<section id="paparan" class="paparan-full">
-    <div class="paparan-container">
-        <div class="slideshow">
-            <img src="Log Masuk.png" class="slide active">
-            <img src="Antaramuka Pengguna.png" class="slide">
-            <img src="Antaramuka Admin.png" class="slide">
-
-            <div class="slide-text">
-                PAPARAN SISTEM e-TEMPAH
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- KENALI KAMI -->
-<section id="kenali">
-    <div class="container">
-        <h2 class="section-title">Kenali Kami</h2>
-
-        <div class="kenali-grid">
-            <div class="kenali-top">
-                <div class="kenali-item">
-                    <img src="CG Liza.png">
-                    <p>Pn. Rusliza binti Ramli</p>
-                </div>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="Logo Sistem.png" alt="Logo e-Tempah">
+                <div class="logo-text">e-Tempah</div>
             </div>
 
-            <div class="kenali-bottom">
-                <div class="kenali-item">
-                    <img src="Hafiy Imran.png">
-                    <p>Hafiy Imran bin Hairi Idzham</p>
-                </div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
 
-                <div class="kenali-item">
-                    <img src="Afif Aminin.png" class="afif-face">
-                    <p>Muhammad Afif Aminin bin Rikino</p>
+            <nav class="nav-links" id="menu">
+                <a href="#paparan" class="nav-link">
+                    <span class="nav-icon">🖥️</span>
+                    Paparan Sistem
+                </a>
+                <a href="#kenali" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    Kenali Kami
+                </a>
+                <a href="#demo" class="nav-link">
+                    <span class="nav-icon">🎬</span>
+                    Demo Penggunaan
+                </a>
+                <a href="#lain" class="nav-link">
+                    <span class="nav-icon">🔗</span>
+                    Lain-lain
+                </a>
+            </nav>
+        </div>
+
+        <div class="system-title">
+            <div class="title-content">
+                <h1>Sistem Tempahan Bilik Kuliah Khas KVSP1</h1>
+                <p class="subtitle">Mudah • Pantas • Efisien</p>
+                <div class="title-decoration"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAPARAN SISTEM -->
+    <section id="paparan" class="section-animate">
+        <div class="section-decoration top-wave"></div>
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">🖼️</span>
+                PAPARAN SISTEM
+                <span class="title-line"></span>
+            </h2>
+            
+            <div class="paparan-container">
+                <div class="slideshow">
+                    <div class="slide-counter">
+                        <span class="current-slide">1</span> / <span class="total-slides">3</span>
+                    </div>
+                    <img src="Log Masuk.png" class="slide active">
+                    <img src="Antaramuka Pengguna.png" class="slide">
+                    <img src="Antaramuka Admin.png" class="slide">
+                    
+                    <div class="slide-navigation">
+                        <button class="nav-btn prev-btn" onclick="prevSlide()">‹</button>
+                        <button class="nav-btn next-btn" onclick="nextSlide()">›</button>
+                    </div>
+                    
+                    <div class="slide-text">
+                        <div class="text-content">
+                            <h3>Antaramuka e-Tempah</h3>
+                            <p>Paparan sistem tempahan bilik kuliah yang intuitif dan mesra pengguna</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slide-indicators">
+                    <span class="indicator active" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <div class="section-decoration bottom-wave"></div>
+    </section>
 
-<!-- DEMO -->
-<section id="demo">
-    <div class="container">
-        <h2 class="section-title"> Demo Penggunaan Sistem</h2>
-        <div class="video-box">
-            <video controls>
-                <source src="demo.mp4" type="video/mp4">
-            </video>
+    <!-- KENALI KAMI -->
+    <section id="kenali" class="section-animate">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">👥</span>
+                KENALI KAMI
+                <span class="title-line"></span>
+            </h2>
+            
+            <div class="kenali-grid">
+                <div class="kenali-top">
+                    <div class="kenali-item supervisor">
+                        <div class="avatar-container">
+                            <img src="CG Liza.png" alt="Pn. Rusliza">
+                            <div class="avatar-badge">Penyelia</div>
+                        </div>
+                        <div class="kenali-info">
+                            <h3>Pn. Rusliza binti Ramli</h3>
+                            <p class="role">Penyelia Projek</p>
+                            <p class="description">Pembimbing dan penyelia projek sistem tempahan bilik kuliah</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kenali-bottom">
+                    <div class="kenali-item developer">
+                        <div class="avatar-container">
+                            <img src="Hafiy Imran.png" alt="Hafiy Imran">
+                            <div class="avatar-badge">Developer</div>
+                        </div>
+                        <div class="kenali-info">
+                            <h3>Hafiy Imran bin Hairi Idzham</h3>
+                            <p class="role">Frontend Developer</p>
+                            <p class="description">Bertanggungjawab terhadap antaramuka pengguna sistem</p>
+                        </div>
+                    </div>
+
+                    <div class="kenali-item developer">
+                        <div class="avatar-container">
+                            <img src="Afif Aminin.png" alt="Afif Aminin" class="afif-face">
+                            <div class="avatar-badge">Developer</div>
+                        </div>
+                        <div class="kenali-info">
+                            <h3>Muhammad Afif Aminin bin Rikino</h3>
+                            <p class="role">Backend Developer</p>
+                            <p class="description">Bertanggungjawab terhadap logik dan pangkalan data sistem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-description">
+                <p>🎯 <strong>Misi Kami:</strong> Membangunkan sistem tempahan bilik kuliah yang efisien dan mesra pengguna untuk KVSP1</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- LAIN-LAIN -->
-<section id="lain">
-    <div class="container">
-        <h2 class="section-title">Lain-lain</h2>
-
-        <div class="links">
-            <a href="https://etempah.teknokomsp1.com/" target="_blank">
-                Web Kami!
-            </a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdik3dNjg_HANMKHxLZbBioor8EBjWb2x9ub5CVGxMREa4dXQ/viewform">
-                Borang Soal Selidik
-            </a>
+    <!-- DEMO -->
+    <section id="demo" class="section-animate">
+        <div class="section-decoration demo-wave"></div>
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">🎬</span>
+                DEMO PENGGUNAAN SISTEM
+                <span class="title-line"></span>
+            </h2>
+            
+            <div class="video-container">
+                <div class="video-header">
+                    <h3>Video Demonstrasi e-Tempah</h3>
+                    <p>Panduan lengkap penggunaan sistem tempahan bilik kuliah</p>
+                </div>
+                
+                <div class="video-box">
+                    <div class="video-wrapper">
+                        <video controls poster="video-thumbnail.jpg">
+                            <source src="demo.mp4" type="video/mp4">
+                            Pelayar anda tidak menyokong elemen video.
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-btn">▶</div>
+                        </div>
+                    </div>
+                    
+                    <div class="video-controls">
+                        <button class="control-btn" onclick="togglePlay()">
+                            <span class="control-icon">⏯️</span> Main/Jeda
+                        </button>
+                        <button class="control-btn" onclick="toggleMute()">
+                            <span class="control-icon">🔊</span> Suara
+                        </button>
+                        <button class="control-btn" onclick="toggleFullscreen()">
+                            <span class="control-icon">⛶</span> Skrin Penuh
+                        </button>
+                    </div>
+                    
+                    <div class="video-description">
+                        <h4>📋 Langkah-langkah Penggunaan:</h4>
+                        <ol>
+                            <li>Log masuk ke sistem</li>
+                            <li>Pilih bilik kuliah yang tersedia</li>
+                            <li>Tetapkan tarikh dan masa</li>
+                            <li>Hantar permohonan tempahan</li>
+                            <li>Tunggu pengesahan daripada admin</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script src="script.js"></script>
+    <!-- LAIN-LAIN -->
+    <section id="lain" class="section-animate">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-icon">🔗</span>
+                LAIN-LAIN
+                <span class="title-line"></span>
+            </h2>
+            
+            <div class="links-container">
+                <div class="link-card">
+                    <div class="link-icon">🌐</div>
+                    <h3>Web Sistem e-Tempah</h3>
+                    <p>Akses sistem tempahan bilik kuliah sebenar</p>
+                    <a href="https://etempah.teknokomsp1.com/" target="_blank" class="link-btn glow-on-hover">
+                        Lawati Laman Web
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">📝</div>
+                    <h3>Borang Soal Selidik</h3>
+                    <p>Bantu kami menambahbaik sistem dengan maklum balas anda</p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdik3dNjg_HANMKHxLZbBioor8EBjWb2x9ub5CVGxMREa4dXQ/viewform" 
+                       target="_blank" class="link-btn glow-on-hover">
+                        Isi Borang Soal Selidik
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+                
+                <div class="link-card">
+                    <div class="link-icon">📧</div>
+                    <h3>Hubungi Kami</h3>
+                    <p>Ada soalan atau cadangan? Hubungi kami</p>
+                    <a href="mailto:contact@etempah.com" class="link-btn glow-on-hover">
+                        Hantar E-mel
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-info">
+                <div class="footer-logo">
+                    <img src="Logo Sistem.png" alt="Logo e-Tempah">
+                    <span>e-Tempah</span>
+                </div>
+                <p class="copyright">© 2024 Sistem Tempahan Bilik Kuliah Khas KVSP1. Hak Cipta Terpelihara.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📸</a>
+                    <a href="#" class="social-link">📧</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
