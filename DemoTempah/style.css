@@ -235,3 +235,20 @@ video {
         gap: 40px;
     }
 }
+/* ================= MOBILE 16:9 FIX ================= */
+@media (max-width: 768px) {
+
+    .slideshow {
+        height: auto;
+        aspect-ratio: 16 / 9;   /* paksa 16:9 */
+        padding-top: 0;         /* buang padding trick */
+    }
+
+    .slide {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;      /* kekalkan crop cantik */
+    }
+
+}
+
