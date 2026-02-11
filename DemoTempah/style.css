@@ -6,7 +6,7 @@
 }
 
 body {
-    background: #f5f6f7;
+    background: #f6f1e8;
     color: #333;
     padding-top: 180px; /* tinggi header + tajuk */
 }
@@ -17,7 +17,7 @@ header {
     top: 0;
     width: 100%;
     background: #ffffff;
-    border-bottom: 2px solid #0b5ed7;
+    border-bottom: 2px solid #4e342e;
     z-index: 1000;
 }
 
@@ -61,7 +61,7 @@ header {
     padding: 20px 10px;
     font-size: 22px;
     font-weight: 700;
-    color: #0b5ed7;
+    color: #4e342e; 
     border-top: 2px solid #0b5ed7;
     border-bottom: 1px solid #0b5ed7; /* nipis bawah sahaja */
 }
@@ -84,6 +84,7 @@ section {
 /* ================= PAPARAN ================= */
 .paparan-full {
     padding-top: 40px; /* jarak dari tajuk */
+     background: #fffaf3;
 }
 
 .paparan-container {
@@ -191,15 +192,15 @@ video {
 
 .links a {
     padding: 12px 30px;
-    border: 2px solid #0b5ed7;
+    border: 2px solid #6d4c41;
     border-radius: 8px;
     text-decoration: none;
-    color: #0b5ed7;
+   color: #6d4c41;
     font-weight: 600;
 }
 
 .links a:hover {
-    background: #0b5ed7;
+   background: #6d4c41;
     color: #fff;
 }
 
@@ -235,6 +236,7 @@ video {
         gap: 40px;
     }
 }
+
 
 
 
