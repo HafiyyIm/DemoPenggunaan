@@ -47,27 +47,146 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// SLIDESHOW FUNCTIONALITY
+// SLIDESHOW VARIABLES
 let currentSlide = 0;
 const slides = document.querySelectorAll('.slide');
 const indicators = document.querySelectorAll('.indicator');
 const totalSlides = slides.length;
 const currentSlideElement = document.querySelector('.current-slide');
 const totalSlidesElement = document.querySelector('.total-slides');
+let slideshowInterval;
+const slideshow = document.querySelector('.slideshow');
 
-// Initialize slideshow
+// Detect touch device
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Initialize slideshow with mobile fixes
 function initSlideshow() {
     totalSlidesElement.textContent = totalSlides;
     updateSlideCounter();
     
-    // Auto slide every 5 seconds
-    setInterval(() => {
-        nextSlide();
-    }, 5000);
+    // Preload images untuk elak lag pada mobile
+    preloadSlideImages();
+    
+    // Start slideshow dengan timing yang sesuai untuk mobile
+    startSlideshow();
+    
+    // Add visibility change listener
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Add touch/swipe events untuk mobile
+    if (isTouchDevice) {
+        setupTouchEvents();
+    }
+    
+    // Add hover pause untuk desktop sahaja
+    if (!isTouchDevice) {
+        setupHoverPause();
+    }
 }
 
-// Change slide
+// Preload images untuk performance lebih baik
+function preloadSlideImages() {
+    slides.forEach(slide => {
+        const img = slide;
+        if (img.complete) {
+            img.classList.add('loaded');
+        } else {
+            img.classList.add('loading');
+            img.addEventListener('load', function() {
+                this.classList.remove('loading');
+                this.classList.add('loaded');
+            });
+            
+            // Force load jika ada masalah
+            if (img.src && !img.complete) {
+                const tempImg = new Image();
+                tempImg.src = img.src;
+            }
+        }
+    });
+}
+
+// Start slideshow dengan timing yang sesuai
+function startSlideshow() {
+    // Clear existing interval
+    if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+    }
+    
+    // Timing berbeza untuk mobile (lebih perlahan)
+    const interval = window.innerWidth <= 768 ? 6000 : 5000;
+    slideshowInterval = setInterval(nextSlide, interval);
+}
+
+// Pause slideshow ketika tidak dalam viewport
+function handleVisibilityChange() {
+    if (document.hidden) {
+        if (slideshowInterval) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+        }
+    } else {
+        startSlideshow();
+    }
+}
+
+// Setup touch events untuk mobile swipe
+function setupTouchEvents() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    slideshow.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        // Pause autoplay ketika user swipe
+        if (slideshowInterval) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+        }
+    }, { passive: true });
+    
+    slideshow.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        // Restart autoplay selepas swipe
+        setTimeout(startSlideshow, 3000);
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const difference = touchStartX - touchEndX;
+        
+        if (Math.abs(difference) > swipeThreshold) {
+            if (difference > 0) {
+                // Swipe left - next slide
+                nextSlide();
+            } else {
+                // Swipe right - previous slide
+                prevSlide();
+            }
+        }
+    }
+}
+
+// Setup hover pause untuk desktop
+function setupHoverPause() {
+    slideshow.addEventListener('mouseenter', () => {
+        if (slideshowInterval) {
+            clearInterval(slideshowInterval);
+            slideshowInterval = null;
+        }
+    });
+    
+    slideshow.addEventListener('mouseleave', () => {
+        startSlideshow();
+    });
+}
+
+// Change slide dengan animation
 function changeSlide(slideIndex) {
+    // Add transition class
+    slideshow.classList.add('changing');
+    
     // Remove active class from current slide and indicator
     slides[currentSlide].classList.remove('active');
     indicators[currentSlide].classList.remove('active');
@@ -81,6 +200,14 @@ function changeSlide(slideIndex) {
     
     // Update counter
     updateSlideCounter();
+    
+    // Remove transition class after animation
+    setTimeout(() => {
+        slideshow.classList.remove('changing');
+    }, 800);
+    
+    // Restart interval
+    startSlideshow();
 }
 
 // Next slide
@@ -105,10 +232,13 @@ indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
         changeSlide(index);
     });
+    
+    // Add touch events untuk mobile
+    indicator.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        changeSlide(index);
+    }, { passive: false });
 });
-
-// Initialize slideshow when DOM is loaded
-document.addEventListener('DOMContentLoaded', initSlideshow);
 
 // SMOOTH SCROLL WITH OFFSET
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -182,61 +312,147 @@ function animateSectionsOnScroll() {
 const video = document.querySelector('video');
 
 function togglePlay() {
-    if (video.paused) {
-        video.play();
-    } else {
-        video.pause();
+    if (video) {
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
     }
 }
 
 function toggleMute() {
-    video.muted = !video.muted;
-    updateMuteButton();
+    if (video) {
+        video.muted = !video.muted;
+        updateMuteButton();
+    }
 }
 
 function updateMuteButton() {
     const muteBtn = document.querySelector('[onclick="toggleMute()"]');
-    const icon = muteBtn.querySelector('.control-icon');
-    icon.textContent = video.muted ? '🔇' : '🔊';
+    if (muteBtn && video) {
+        const icon = muteBtn.querySelector('.control-icon');
+        if (icon) {
+            icon.textContent = video.muted ? '🔇' : '🔊';
+        }
+    }
 }
 
 function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-        const videoWrapper = document.querySelector('.video-wrapper');
-        if (videoWrapper.requestFullscreen) {
-            videoWrapper.requestFullscreen();
-        } else if (videoWrapper.webkitRequestFullscreen) {
-            videoWrapper.webkitRequestFullscreen();
-        } else if (videoWrapper.msRequestFullscreen) {
-            videoWrapper.msRequestFullscreen();
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
+    const videoWrapper = document.querySelector('.video-wrapper');
+    if (videoWrapper) {
+        if (!document.fullscreenElement) {
+            if (videoWrapper.requestFullscreen) {
+                videoWrapper.requestFullscreen();
+            } else if (videoWrapper.webkitRequestFullscreen) {
+                videoWrapper.webkitRequestFullscreen();
+            } else if (videoWrapper.msRequestFullscreen) {
+                videoWrapper.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
         }
     }
 }
 
 // Click to play on video overlay
-document.querySelector('.video-overlay').addEventListener('click', togglePlay);
+const videoOverlay = document.querySelector('.video-overlay');
+if (videoOverlay) {
+    videoOverlay.addEventListener('click', togglePlay);
+}
 
 // Update play/pause on video
-video.addEventListener('play', function() {
-    document.querySelector('.play-btn').style.display = 'none';
-});
-
-video.addEventListener('pause', function() {
-    document.querySelector('.play-btn').style.display = 'flex';
-});
+if (video) {
+    video.addEventListener('play', function() {
+        const playBtn = document.querySelector('.play-btn');
+        if (playBtn) {
+            playBtn.style.display = 'none';
+        }
+    });
+    
+    video.addEventListener('pause', function() {
+        const playBtn = document.querySelector('.play-btn');
+        if (playBtn) {
+            playBtn.style.display = 'flex';
+        }
+    });
+}
 
 // SCROLL EVENT LISTENERS
 window.addEventListener('scroll', () => {
     updateActiveNavLink();
     animateSectionsOnScroll();
+    updateScrollToTopButton();
 });
+
+// SCROLL TO TOP BUTTON
+const scrollToTopBtn = document.createElement('button');
+scrollToTopBtn.innerHTML = '↑';
+scrollToTopBtn.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--brown-light), var(--brown-medium));
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px var(--shadow-dark);
+    transition: var(--transition);
+    opacity: 0;
+    transform: translateY(20px);
+`;
+
+scrollToTopBtn.addEventListener('mouseenter', () => {
+    scrollToTopBtn.style.opacity = '1';
+    scrollToTopBtn.style.transform = 'translateY(-5px)';
+});
+
+scrollToTopBtn.addEventListener('mouseleave', () => {
+    scrollToTopBtn.style.opacity = '0.9';
+    scrollToTopBtn.style.transform = 'translateY(0)';
+});
+
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+document.body.appendChild(scrollToTopBtn);
+
+function updateScrollToTopButton() {
+    if (window.pageYOffset > 500) {
+        scrollToTopBtn.style.display = 'flex';
+        setTimeout(() => {
+            scrollToTopBtn.style.opacity = '0.9';
+            scrollToTopBtn.style.transform = 'translateY(0)';
+        }, 10);
+    } else {
+        scrollToTopBtn.style.opacity = '0';
+        scrollToTopBtn.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            scrollToTopBtn.style.display = 'none';
+        }, 300);
+    }
+}
 
 // Initial animations
 window.addEventListener('load', () => {
+    // Initialize slideshow
+    initSlideshow();
+    
+    // Animate sections
     animateSectionsOnScroll();
     
     // Add animation delay to each section
@@ -244,21 +460,49 @@ window.addEventListener('load', () => {
     sections.forEach((section, index) => {
         section.style.transitionDelay = `${index * 0.2}s`;
     });
+    
+    // Update mute button
+    updateMuteButton();
+    
+    // Add loading animation to images
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('load', function() {
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+        });
+        
+        img.style.opacity = '0';
+        img.style.transform = 'scale(0.9)';
+        img.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        // Force load if already cached
+        if (img.complete) {
+            img.dispatchEvent(new Event('load'));
+        }
+    });
 });
 
 // RESIZE HANDLER
+let resizeTimer;
 window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) {
-        const menu = document.getElementById('menu');
-        menu.style.display = 'flex';
-        menu.style.opacity = '1';
-        menu.style.transform = 'translateY(0)';
-    } else {
-        const menu = document.getElementById('menu');
-        if (!menu.classList.contains('active')) {
-            menu.style.display = 'none';
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+        // Restart slideshow dengan timing yang sesuai
+        startSlideshow();
+        
+        // Fix untuk mobile menu
+        if (window.innerWidth > 768) {
+            const menu = document.getElementById('menu');
+            menu.style.display = 'flex';
+            menu.style.opacity = '1';
+            menu.style.transform = 'translateY(0)';
+        } else {
+            const menu = document.getElementById('menu');
+            if (!menu.classList.contains('active')) {
+                menu.style.display = 'none';
+            }
         }
-    }
+    }, 250);
 });
 
 // KEYBOARD SHORTCUTS
@@ -271,7 +515,7 @@ document.addEventListener('keydown', function(e) {
     }
     
     // Space bar for video play/pause
-    if (e.key === ' ' && document.querySelector('video')) {
+    if (e.key === ' ' && video) {
         e.preventDefault();
         togglePlay();
     }
@@ -284,39 +528,6 @@ document.addEventListener('keydown', function(e) {
     // F key for fullscreen
     if (e.key === 'f' || e.key === 'F') {
         toggleFullscreen();
-    }
-});
-
-// Add hover effect to all interactive elements
-document.querySelectorAll('a, button, .kenali-item, .link-card').forEach(element => {
-    element.addEventListener('mouseenter', function() {
-        this.style.transition = 'var(--transition)';
-    });
-    
-    element.addEventListener('mouseleave', function() {
-        this.style.transition = 'var(--transition)';
-    });
-});
-
-// Initialize mute button text
-if (video) {
-    updateMuteButton();
-}
-
-// Add loading animation to images
-document.querySelectorAll('img').forEach(img => {
-    img.addEventListener('load', function() {
-        this.style.opacity = '1';
-        this.style.transform = 'scale(1)';
-    });
-    
-    img.style.opacity = '0';
-    img.style.transform = 'scale(0.9)';
-    img.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    
-    // Force load if already cached
-    if (img.complete) {
-        img.dispatchEvent(new Event('load'));
     }
 });
 
@@ -342,27 +553,6 @@ document.querySelectorAll('.link-btn, .control-btn, .nav-btn').forEach(button =>
     });
 });
 
-// Add CSS for ripple effect
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.7);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-    }
-    
-    @keyframes ripple-animation {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(rippleStyle);
-
 // Add parallax effect to floating bubbles
 window.addEventListener('scroll', function() {
     const scrolled = window.pageYOffset;
@@ -384,86 +574,4 @@ setTimeout(() => {
         console.log('→ M: Mute/Unmute video');
         console.log('→ F: Toggle fullscreen');
         
-        // Optional: Show a subtle toast notification
-        const toast = document.createElement('div');
-        toast.textContent = '🎮 Keyboard shortcuts enabled!';
-        toast.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--brown-medium);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 14px;
-            z-index: 10000;
-            animation: slideInRight 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        `;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => {
-            toast.style.animation = 'slideOutRight 0.3s ease';
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
-        
-        localStorage.setItem('shortcutsShown', 'true');
-    }
-}, 2000);
-
-// Add animation for scroll to top button
-const scrollToTopBtn = document.createElement('button');
-scrollToTopBtn.innerHTML = '↑';
-scrollToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--brown-light), var(--brown-medium));
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 20px var(--shadow-dark);
-    transition: var(--transition);
-    opacity: 0.9;
-`;
-
-scrollToTopBtn.addEventListener('mouseenter', () => {
-    scrollToTopBtn.style.opacity = '1';
-    scrollToTopBtn.style.transform = 'translateY(-5px)';
-});
-
-scrollToTopBtn.addEventListener('mouseleave', () => {
-    scrollToTopBtn.style.opacity = '0.9';
-    scrollToTopBtn.style.transform = 'translateY(0)';
-});
-
-scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-document.body.appendChild(scrollToTopBtn);
-
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 500) {
-        scrollToTopBtn.style.display = 'flex';
-        setTimeout(() => {
-            scrollToTopBtn.style.opacity = '0.9';
-        }, 10);
-    } else {
-        scrollToTopBtn.style.opacity = '0';
-        setTimeout(() => {
-            scrollToTopBtn.style.display = 'none';
-        }, 300);
-    }
-});
+        // Optional
